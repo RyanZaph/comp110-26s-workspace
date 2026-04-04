@@ -1,0 +1,78 @@
+"""EX05 - Dictionary Utility Functions."""
+
+__author__: str = "730894533"
+
+
+def invert(dictionary: dict[str, str]) -> dict[str, str]:
+    """Invert the keys and the values of a dictionary."""
+    new_dict: dict[str, str] = {}
+    # how to swap # to access key do dictionary[key] to access value do dictionary[key_name]
+    for key in dictionary:
+        if dictionary[key] in new_dict:  # [key] assigned to value differetnt then key
+            raise KeyError("error message of your choice here!")
+        value: str = dictionary[key]  # to swap do new_dic[4] = "word"
+        new_dict[value] = key  # appends new dictionary vaues but inverted
+    return new_dict
+
+
+def favorite_color(dictionary: dict[str, str]) -> str:
+    """Find the most frequently appearing color in the dictionary."""
+    # you look at the key of dicctionary you look at its value, assign that value as a kry
+    occur_dict: dict[str, int] = {}
+    for name in dictionary:
+        color = dictionary[name]
+        if color in occur_dict:
+            occur_dict[color] += 1
+        else:
+            occur_dict[color] = 1
+
+    max_occur: int = 0
+    fav_color: str = ""
+    for color in occur_dict:
+        if occur_dict[color] > max_occur:
+            # we found a NEW max
+            max_occur = occur_dict[color]
+            fav_color = color
+
+    return fav_color
+
+
+def count(word_list: list[str]) -> dict[str, int]:
+    """Count how many times each unique string appears in a list."""
+    str_occur: dict[str, int] = {}
+    for word in word_list:  # for every string in the list use it to acces its value
+        if word in str_occur:
+            str_occur[word] += 1
+        else:
+            str_occur[word] = 1
+    return str_occur
+
+
+def alphabetizer(word_list: list[str]) -> dict[str, list[str]]:
+    """Group a list of words alphabetically by their first letter."""
+    new_dict: dict[str, list[str]] = {}
+    for word in word_list:
+        if word.isalpha():
+            lowered_word = word.lower()  # for every word in the word list
+            first_letter = lowered_word[0]
+            if first_letter not in new_dict:
+                new_dict[first_letter] = []
+            new_dict[first_letter].append(word)
+    return new_dict
+
+
+def update_attendance(
+    attendance_log: dict[str, list[str]], day: str, student: str
+) -> None:
+    """Update the attendance log with a new student on a specific day."""
+    # check if the day exists; if not, initialize it with an empty list
+
+    if day == "" or student == "":
+        return attendance_log
+
+    if day not in attendance_log:
+        attendance_log[day] = []
+
+    # check if student is already in the list for that day to avoid duplicates
+    if student not in attendance_log[day]:
+        attendance_log[day].append(student)

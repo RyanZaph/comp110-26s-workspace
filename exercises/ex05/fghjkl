@@ -1,0 +1,125 @@
+__author__: str = "730894533"
+
+from dictionary import invert, favorite_color, count, alphabetizer, update_attendance
+
+
+def test_invert_1() -> None:
+    """Testing to see if invert function switches the key values"""
+    assert invert({"one": "two", "three": "four"}) == {"two": "one", "four": "three"}
+
+
+def test_invert_2() -> None:
+    assert invert({"slam": "dunk", "home": "run"}) == {"dunk": "slam", "run": "home"}
+
+
+def test_invert_3() -> None:
+    assert invert({}) == {}
+
+
+def test_favorite_color_1() -> None:
+    """Testing to see if it inputs the favorite/most common color in the dictionary"""
+    assert (
+        favorite_color(
+            {
+                "Greg": "green",
+                "eggark": "red",
+                "housayninmyarocky": "blue",
+                "Gormy": "green",
+            }
+        )
+        == "green"
+    )
+
+
+def test_favorite_color_2() -> None:
+    assert (
+        favorite_color(
+            {
+                "Greg": "green",
+                "eggark": "red",
+                "housayninmyarocky": "green",
+                "Gormy": "red",
+            }
+        )
+        == "green"
+    )
+
+
+def test_favorite_color_3() -> None:
+    assert favorite_color({}) == ""
+
+
+def test_count_1() -> None:
+    """tests to see if function gets dicitonary list and returns each unqique word and how many times it appears in the list"""
+    assert count(["egg", "egg", "bannana", "milk"]) == {
+        "egg": 2,
+        "bannana": 1,
+        "milk": 1,
+    }
+
+
+def test_count_2() -> None:
+    assert count(["egg", "#!902", "apple", "egg"]) == {"egg": 2, "#!902": 1, "apple": 1}
+
+
+def test_count_3() -> None:
+    assert count([]) == {}
+
+
+def test_alphabetizer() -> None:
+    "tests to see that gets list, lists the first letter of each word starting with that letter in the list and puts it in a dictionary. It should also remove any non lettered word like @tuoe + counts capitals as same as lowercase"
+    assert alphabetizer(["egg", "Eggarkopoly", "obelisk,", "shoomy"]) == {
+        "e": ["egg", "Eggarkopoly"],
+        "o": ["obelisk"],
+        "s": ["shoomy"],
+    }
+
+
+def test_alphabetizer_2() -> None:
+    assert alphabetizer(
+        ["greggertosphagin", "slatt", "balashba", "cregandicliffs", "5467389"]
+    ) == {
+        "g": ["greggertosphagin"],
+        "s": ["slatt"],
+        "b": ["balashba"],
+        "c": ["cregandicliffs"],
+    }
+
+
+def test_alphabetizer_3() -> None:
+    assert alphabetizer([]) == {}
+
+
+def test_update_attendance_1() -> None:
+    attendance_log: dict[str, list[str]] = {
+        "Monday": ["Greg", "Craig"],
+        "Tuesday": ["Eggby"],
+    }
+    """takes a dictionary of days and the students in attendace that day. It should  then take another dictionary with student(s) and the day. If the day exisst then dont add it if not add it. It should also add the student to that day"""
+    assert update_attendance(attendance_log, "Wednesday", "Pitzareuqe") == {
+        "Monday": ["Greg", "Craig"],
+        "Tuesday": ["Eggby"],
+        "Wednesday": ["Pitzareuqe"],
+    }
+
+
+def test_update_attendance_2() -> None:
+    attendance_log: dict[str, list[str]] = {
+        "Monday": ["Greg", "Craig"],
+        "Tuesday": ["Eggby"],
+    }
+    assert update_attendance(attendance_log, "Tuesday", "Jame") == {
+        "Monday": ["Greg", "Craig"],
+        "Tuesday": ["Eggby", "Jame"],
+    }
+
+
+def test_update_attendance_3() -> None:
+    attendance_log: dict[str, list[str]] = {
+        "Monday": ["Greg", "Craig"],
+        "Tuesday": ["Eggby"],
+    }
+    assert update_attendance(attendance_log, "", "") == {
+        "Monday": ["Greg", "Craig"],
+        "Tuesday": ["Eggby"],
+    }
