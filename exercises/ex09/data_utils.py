@@ -1,6 +1,6 @@
 """Data related utility functions."""
 
-__author__ = ["", ""]
+__author__ = ["730894533", ""]
 
 from csv import DictReader
 
@@ -51,7 +51,10 @@ def convert_columns_to_int(
 
     return data_converted
 
+
 """These are the functions we wrote/will write in class!"""
+
+
 def read_csv_rows(filename: str) -> list[dict[str, str]]:
     """Read the rows of a CSV into a 'table'."""
     result: list[dict[str, str]] = []
@@ -92,3 +95,51 @@ def columnar(row_table: list[dict[str, str]]) -> dict[str, list[str]]:
         result[column] = column_values(row_table, column)
 
     return result
+
+
+# take certain number of rows (N) and return new column basded list
+def head(
+    data_dict: dict[str, list[str]], N_rows: int
+) -> dict[str, list[str]]:  # first string is column name
+    new_data_dict: dict[str, list[str]] = {}
+    for column in data_dict:  # column is key and row is index value
+        new_data_dict[column] = data_dict[column][
+            :N_rows
+        ]  # creates new dict and assigns key vvalue pair of data dict and uses 0 through Nth rows
+    return new_data_dict
+
+
+def select(
+    og_dict: dict[str, list[str]], column_list: list[str]
+) -> dict[str, list[str]]:
+    result_dict: dict[str, list[str]] = {}
+    for column in column_list:
+        result_dict[column] = og_dict[column]
+    return result_dict
+
+
+# assigns select data of the orignal dat set to the new one without all the extra data
+
+
+def concat(
+    dict_a: dict[str, list[str]], dict_b: dict[str, list[str]]
+) -> dict[str, list[str]]:
+    result_dict: dict[str, list[str]] = {}
+    for column in dict_a:
+        result_dict[column] = dict_a[column]
+    for column in dict_b:
+        if column in result_dict:
+            result_dict[column] += dict_b[column]
+        else:
+            result_dict[column] = dict_b[column]
+    return result_dict
+
+
+def count(og_list: list[str]) -> dict[str, int]:
+    result_dict: dict[str, int] = {}
+    for item in og_list:
+        if item in result_dict:
+            result_dict[item] += 1
+        else:
+            result_dict[item] = 1
+    return result_dict
