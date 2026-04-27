@@ -1,13 +1,14 @@
-def contains_char(input_word: str, char_match: str) -> bool:  # imported from cq (edit?)
-    """This function searches for a specific character in a word to see if there are any occurences of it"""
-    assert len(char_match) == 1
-    index: int = 0
-    while index < len(input_word):
-        if input_word[index] == char_match:
-            return True
-        index = index + 1
-    return False
+from data_utils import head
 
+data_cols_head: dict[str, list[str]] = head(data_cols, 5)
 
-contains_char("foot", "o")
-type: str = input()
+if (
+    len(get_keys(data_cols_head)) != len(get_keys(data_cols))
+    or len(data_cols_head["year"]) != 5
+):
+    print("Complete your implementation of columnar in data_utils.py")
+    print(
+        "Be sure to follow the guidelines above and save your work before re-evaluating!"
+    )
+
+tabulate(data_cols_head, get_keys(data_cols_head), "html")

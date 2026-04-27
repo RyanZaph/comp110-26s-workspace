@@ -92,15 +92,12 @@ def columnar(row_table: list[dict[str, str]]) -> dict[str, list[str]]:
 
     first_row: dict[str, str] = row_table[0]
     for column in first_row:
-        result[column] = column_values(row_table, column)
-
+        result[column] = column_values(row_table, column) 
     return result
 
 
 # take certain number of rows (N) and return new column basded list
-def head(
-    data_dict: dict[str, list[str]], N_rows: int
-) -> dict[str, list[str]]:  # first string is column name
+def head( data_dict: dict[str, list[str]], N_rows: int) -> dict[str, list[str]]:  # first string is column name
     new_data_dict: dict[str, list[str]] = {}
     for column in data_dict:  # column is key and row is index value
         new_data_dict[column] = data_dict[column][
@@ -143,3 +140,26 @@ def count(og_list: list[str]) -> dict[str, int]:
         else:
             result_dict[item] = 1
     return result_dict
+
+"""data - This is where you input your data dictionary.
+kind - Customizes the kind of plot you'll get from relplot. Possible values: "scatter", "line"
+x, y - Use these to define the data that will be on your x and y axes, using your column names as the arguments.
+size (Optional) - Use this to define the size of your dots for the scatterplot or the width of the lines for the lineplot relative to a column's data, using the column's name as the argument.
+col (Optional) - Use this to split your figure into multiple plots based on the values in a column, using the column's name as the argument.
+hue (Optional) - Use this to define the color of your dots or lines for the lineplot relative to a column's data, using the column's name as the argumen"""
+
+
+def data_filter(concat_dict: dict[str, list[str]]) -> dict[str, list[str]]:
+    result: dict[str, list[str]] = {}
+    keep_indices: list[int] = []
+
+    for element in range(len(concat_dict["interested_connections"])):
+        if int(concat_dict["interested_connections"][element]) <= 3:
+            keep_indices.append(element) 
+
+    for column in concat_dict:
+        result[column] = []
+        for element in keep_indices:
+            result[column].append(concat_dict[column][element])
+
+    return result
